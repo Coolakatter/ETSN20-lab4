@@ -10,28 +10,36 @@ public class SearchStringInFiles {
             return;
         }
 
-        String string = args[0];
+        String pattern = args[0];
         String fileName = args[1];
 
-        searchFile(string, fileName);
+        searchFile(pattern, fileName);
     }
 
-    private static void searchFile(String string, String fileName) {
+    private static void searchFile(String pattern, String fileName) {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line = br.readLine();
             int lineNumber = 0;
+            boolean foundOnce = false;
             
-            System.out.println("Search word: " + string + "\n" + "In file: " + fileName);
-            System.out.println("Word found in line: ");
+            System.out.println("Search word: " + pattern + "\n" + "In file: " + fileName);   
             
             while (line != null) { 
                 lineNumber++;
                 
-                if (line.contains(string)) {
+                if (line.toLowerCase().contains(pattern.toLowerCase())) {
+                	if(!foundOnce) {
+                		System.out.println("Word found in line: ");
+                	}
+                	foundOnce = true;
                     System.out.println(lineNumber + ": " + line);
                 }
                 
                 line = br.readLine();
+            }
+            
+            if(!foundOnce) {
+            	System.out.println("Word not found in file.");
             }
         } catch (IOException e) {
             System.err.println("Can't find file " + e.getMessage());
