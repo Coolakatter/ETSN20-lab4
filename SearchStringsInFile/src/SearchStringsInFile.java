@@ -18,7 +18,7 @@ public class SearchStringsInFile {
 
     private static void searchFile(String string, String fileName) {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-            String line = br.readLine();;
+            String line = br.readLine();
             int lineNumber = 0;
             
             System.out.println("Search word: " + string + "\n" + "In file: " + fileName);
